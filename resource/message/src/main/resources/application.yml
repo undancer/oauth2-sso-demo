@@ -1,0 +1,12 @@
+server:
+  port: 5000
+security:
+  oauth2:
+    client:
+      client-id: demo
+      client-secret: demo
+    resource:
+      token-info-uri: ${auth-server:http://localhost:4000/id}/oauth/check_token
+spring:
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
