@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Controller
 public class HomeController {
-    
+
     @Autowired
     OAuth2RestTemplate restTemplate;
     @Value("${messages.url:http://localhost:7777}/api")
