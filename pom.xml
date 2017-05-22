@@ -14,9 +14,9 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <java.version>1.8</java.version>
-        <spring-boot.version>1.4.0.M3</spring-boot.version>
-        <!--<spring-boot.version>1.5.3.RELEASE</spring-boot.version>-->
-        <spring-cloud.version>Brixton.RELEASE</spring-cloud.version>
+        <!--<spring-boot.version>1.4.0.M3</spring-boot.version>-->
+        <spring-boot.version>1.5.3.RELEASE</spring-boot.version>
+        <!--<spring-cloud.version>Brixton.RELEASE</spring-cloud.version>-->
     </properties>
 
 
@@ -35,13 +35,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>org.springframework.cloud</groupId>-->
+                <!--<artifactId>spring-cloud-dependencies</artifactId>-->
+                <!--<version>${spring-cloud.version}</version>-->
+                <!--<type>pom</type>-->
+                <!--<scope>import</scope>-->
+            <!--</dependency>-->
         </dependencies>
     </dependencyManagement>
 
