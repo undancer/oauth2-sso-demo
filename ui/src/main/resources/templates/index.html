@@ -3,28 +3,40 @@
 <head>
     <meta charset="UTF-8"/>
     <title>OAuth2 SSO Demo</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.3/css/uikit.gradient.min.css"/>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.css}"/>
+    <!-- Latest compiled and minified JavaScript -->
+    <script th:src="@{/webjars/bootstrap/dist/js/bootstrap.js}"/>
 </head>
 
 <body>
-
-<div class="uk-grid">
-    <div class="uk-width-1-5"></div>
-    <div class="uk-width-3-5">
-        <h1>Demo</h1>
-        <p>Logged in as: <span th:text="${#httpServletRequest.remoteUser}">demo</span></p>
-        <form th:action="@{/messages}" class="uk-panel uk-panel-box uk-form" method="post">
-            <input class="uk-form-large" type="text" name="text" placeholder="Message"/>
-            <button class="uk-button uk-button-primary uk-button-large">Send</button>
-        </form>
-        <h2>Messages</h2>
-        <div class="uk-panel uk-panel-box" th:each="message : ${messages}">
-            <h3 class="uk-panel-title"><span th:text="${message.username}"></span> @ <span
-                    th:text="${message.createdAt}"></span></h3>
-            <span th:text="${message.text}"></span>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1>Demo</h1>
+            <p>Logged in as: <span th:text="${#httpServletRequest.remoteUser}">demo</span></p>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form th:action="@{/messages}" class="form-inline" method="post">
+                        <input class="form-control" type="text" name="text" placeholder="Message"/>
+                        <button class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+            </div>
+            <h2>Messages</h2>
+            <div class="panel panel-default" th:each="message : ${messages}">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span th:text="${message.username}">username</span> @ <span
+                            th:text="${message.createdAt}">now</span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <span th:text="${message.text}">message</span>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="uk-width-1-5"></div>
 </div>
 </body>
 </html>
