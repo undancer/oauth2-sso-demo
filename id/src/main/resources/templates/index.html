@@ -3,33 +3,19 @@
 <head>
     <meta charset="UTF-8"/>
     <title>OAuth2 SSO Demo</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.3/css/uikit.gradient.min.css"/>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
-
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.css}"/>
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
+    <script th:src="@{/webjars/bootstrap/dist/js/bootstrap.js}"/>
 </head>
 
 <body>
-
-<div class="uk-grid">
-    <div class="uk-width-1-5"></div>
-    <div class="uk-width-3-5">
-        <h1>Demo</h1>
-        <a th:href="@{${@environment.getProperty('ui.url', 'http://localhost:8080')}}">Go back to UI</a>
-        <form th:action="@{/logout}" method="post">
-            <button class="uk-button">Logout</button>
-        </form>
-    </div>
-    <div class="uk-width-1-5"></div>
+<div class="container">
+    <h1>Demo</h1>
+    <a th:href="@{${@environment.getProperty('ui.url', 'http://localhost:8080')}}">Go back to UI</a>
+    <form th:action="@{/logout}" method="post">
+        <button class="btn btn-default">Logout</button>
+    </form>
 </div>
 </body>
 </html>
