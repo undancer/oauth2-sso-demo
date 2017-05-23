@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * Created by undancer on 2017/5/23.
  */
 @Configuration
-//@Order(-20)
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
