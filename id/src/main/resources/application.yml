@@ -1,17 +1,12 @@
+server:
+  port: 4000
+  context-path: /id
 security:
   user:
     password: password
   oauth2:
-    client:
-      client-id: demo
-      client-secret: demo
-      scope: read, write
-      auto-approve-scopes: .*
     authorization:
       check-token-access: permitAll()
-server:
-  port: 4000
-  context-path: /id
 logging:
   level:
     org.springframework.security: DEBUG
