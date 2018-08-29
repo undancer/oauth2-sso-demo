@@ -1,9 +1,13 @@
 server:
   port: 4000
-  context-path: /id
+  servlet:
+    context-path: /id
+#  context-path: /id
+spring:
+  security:
+    user:
+      password: password
 security:
-  user:
-    password: password
   oauth2:
     authorization:
       check-token-access: permitAll()

@@ -1,10 +1,11 @@
 package com.undancer.id.config.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.security.oauth2.authserver.AuthorizationServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -13,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
 /**
@@ -23,20 +25,30 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 @EnableConfigurationProperties(AuthorizationServerProperties.class)
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Autowired
     ClientDetailsService clientDetailsService;
 
-    @Autowired
     UserDetailsService userDetailsService; //这东西在OAuth2.0的authorizationServer中的作用是什么？
 
-    @Autowired
     AuthenticationManager authenticationManager;
 
-    @Autowired(required = false)
     AccessTokenConverter tokenConverter;
 
-    @Autowired
     private AuthorizationServerProperties properties;
+
+    public AuthorizationServerConfig(ClientDetailsService clientDetailsService,
+                                     UserDetailsService userDetailsService,
+                                     AuthenticationConfiguration authenticationConfiguration,
+                                     ObjectProvider<TokenStore> tokenStore,
+                                     ObjectProvider<AccessTokenConverter> tokenConverter,
+                                     AuthorizationServerProperties properties
+    ) throws Exception {
+        this.clientDetailsService = clientDetailsService;
+        this.userDetailsService = userDetailsService;
+        this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
+//        this.tokenStore = tokenStore.getIfAvailable();
+        this.tokenConverter = tokenConverter.getIfAvailable();
+        this.properties = properties;
+    }
 
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.withClientDetails(this.clientDetailsService);
