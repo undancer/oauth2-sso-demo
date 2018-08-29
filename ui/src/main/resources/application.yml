@@ -1,4 +1,7 @@
-auth-server: http://localhost:4000/id
+ui.url: http://ui:8080
+auth-server: http://id:4000/id
+msg.url: http://msg:5000
+
 server:
   port: 8080
 security:
