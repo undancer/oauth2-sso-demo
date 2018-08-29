@@ -12,7 +12,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new User(username, username, AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
+        return User
+                .withUsername(username)
+                .password(username)
+                .authorities(AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"))
+                .build();
     }
 
 }

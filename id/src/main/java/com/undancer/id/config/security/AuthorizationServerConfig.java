@@ -15,7 +15,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
 /**
  * Created by undancer on 2017/5/24.
@@ -25,15 +24,17 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 @EnableConfigurationProperties(AuthorizationServerProperties.class)
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    ClientDetailsService clientDetailsService;
+    private final ClientDetailsService clientDetailsService;
 
-    UserDetailsService userDetailsService; //这东西在OAuth2.0的authorizationServer中的作用是什么？
+    private final UserDetailsService userDetailsService; //这东西在OAuth2.0的authorizationServer中的作用是什么？
 
-    AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    AccessTokenConverter tokenConverter;
+    private final TokenStore tokenStore;
 
-    private AuthorizationServerProperties properties;
+    private final AccessTokenConverter tokenConverter;
+
+    private final AuthorizationServerProperties properties;
 
     public AuthorizationServerConfig(ClientDetailsService clientDetailsService,
                                      UserDetailsService userDetailsService,
@@ -45,16 +46,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         this.clientDetailsService = clientDetailsService;
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
-//        this.tokenStore = tokenStore.getIfAvailable();
+        this.tokenStore = tokenStore.getIfAvailable();
         this.tokenConverter = tokenConverter.getIfAvailable();
         this.properties = properties;
     }
 
+    @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.withClientDetails(this.clientDetailsService);
     }
 
+    @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+//        security.passwordEncoder(NoOpPasswordEncoder.getInstance());
         if (this.properties.getCheckTokenAccess() != null) {
             security.checkTokenAccess(this.properties.getCheckTokenAccess());
         }
@@ -66,13 +70,18 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         }
     }
 
+    @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-
-        endpoints.authenticationManager(this.authenticationManager);
         if (this.tokenConverter != null) {
             endpoints.accessTokenConverter(this.tokenConverter);
         }
-        endpoints.tokenStore(new InMemoryTokenStore());
+        if (this.tokenStore != null) {
+            endpoints.tokenStore(this.tokenStore);
+        }
+        if (this.authenticationManager != null) {
+            endpoints.authenticationManager(this.authenticationManager);
+        }
+
         endpoints.userDetailsService(this.userDetailsService);
     }
 }

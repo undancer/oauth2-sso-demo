@@ -17,17 +17,28 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
  * Created by undancer on 2017/5/23.
  */
 @Configuration
-public class WebSecurity extends WebSecurityConfigurerAdapter {
+//@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
+
+        // @formatter:off
         http
-                .formLogin().loginPage("/login").permitAll()
-                .and()
+                .formLogin()
+                .loginPage("/login").permitAll()
+            .and()
+                .logout().logoutSuccessUrl("/login?logout").permitAll()
+            .and()
                 .requestMatchers()
                 .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access")
-                .and()
+            .and()
                 .authorizeRequests()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+//                .and()
+//                .httpBasic()
+        ;
+        // @formatter:on
+        
     }
 
     @Bean
