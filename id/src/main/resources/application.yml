@@ -1,19 +1,17 @@
 ui.url: http://ui:8080
 auth-server: http://id:4000/id
 msg.url: http://msg:5000
+
 server:
   port: 4000
   servlet:
     context-path: /id
-#  context-path: /id
-spring:
-  security:
-    user:
-      password: password
 security:
   oauth2:
     authorization:
       check-token-access: permitAll()
+#      token-key-access: permitAll()
+#      check-token-access: isAuthenticated()
 logging:
   level:
     org.springframework.security: DEBUG
