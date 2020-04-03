@@ -12,6 +12,9 @@ security:
       check-token-access: permitAll()
 #      token-key-access: permitAll()
 #      check-token-access: isAuthenticated()
+spring:
+  main:
+    allow-bean-definition-overriding: true
 logging:
   level:
     org.springframework.security: DEBUG
