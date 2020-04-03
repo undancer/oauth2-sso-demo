@@ -17,6 +17,8 @@
         <!--<spring-boot.version>1.5.15.RELEASE</spring-boot.version>-->
         <spring-boot.version>2.0.4.RELEASE</spring-boot.version>
         <!--<spring-cloud.version>Brixton.RELEASE</spring-cloud.version>-->
+        <javax.activation.version>1.2.0</javax.activation.version>
+        <jaxb.api.version>2.3.0</jaxb.api.version>
     </properties>
 
 
@@ -54,6 +56,31 @@
                 <artifactId>webjars-locator</artifactId>
                 <version>0.34</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+            <dependency>
+                <groupId>com.sun.activation</groupId>
+                <artifactId>javax.activation</artifactId>
+                <version>${javax.activation.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-core</artifactId>
+                <version>${jaxb.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>${jaxb.api.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
